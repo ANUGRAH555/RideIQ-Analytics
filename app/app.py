@@ -143,14 +143,25 @@ if df is not None and not df.empty:
     st.subheader("2.⏰ Hourly Ride Distribution")
     plot_hourly_distribution(analysis['rides_per_hour'])
 
+
+    st.subheader("3. Ride Type Distribution")
     plot_ride_type_distribution(analysis['ride_type_distribution'])
+
+    st.subheader("4. Fare Distribution & Distance Distribution")
     plot_histograms(df)
+
+    st.subheader("5. Revenue per Day")
     plot_revenue_trend(analysis['revenue_per_day'])
 
     # Plotly scatter plot: do NOT save image file (to avoid kaleido error)
+    st.subheader("6. Fare vs Distance")
     plot_fare_vs_distance(df)
 
+
+    st.subheader("7. Top Pickup & Drop Locations")
     plot_top_locations(analysis['top_pickup_locations'], analysis['top_drop_locations'])
+
+    st.subheader("8. Correlation Heatmap")
     plot_correlation_heatmap(df)
 
     # Auto Insights
