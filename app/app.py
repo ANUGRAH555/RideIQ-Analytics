@@ -137,10 +137,10 @@ if df is not None and not df.empty:
     # Charts
     st.subheader("📊 Visualizations")
 
-    st.subheader("1.📈 Rides Per Day")
+    st.subheader("1. Rides Per Day")
     plot_rides_per_day(analysis['rides_per_day'])
 
-    st.subheader("2.⏰ Hourly Ride Distribution")
+    st.subheader("2. Hourly Ride Distribution")
     plot_hourly_distribution(analysis['rides_per_hour'])
 
 
