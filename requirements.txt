@@ -6,3 +6,5 @@ plotly
 folium
 streamlit-folium
 kaleido
+fpdf
+

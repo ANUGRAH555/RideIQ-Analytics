@@ -3,22 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 import plotly.express as px
-import folium
-from streamlit_folium import st_folium
 
-
-
-
-
-def ensure_plots_dir():
-    if not os.path.exists("plots"):
-        os.makedirs("plots")
-
-
-# Then your other imports and plotting functions below...
-
-
-# Utility to ensure 'plots/' exists
 def ensure_plots_dir():
     os.makedirs("plots", exist_ok=True)
 
@@ -65,11 +50,12 @@ def plot_histograms(df):
     fig.savefig("plots/histograms.png", bbox_inches='tight')
     st.pyplot(fig)
 
-# 5. Scatter Plot (Fare vs Distance)
+# 5. Scatter Plot (Fare vs Distance) — do NOT save image due to kaleido error
 def plot_fare_vs_distance(df):
     ensure_plots_dir()
     fig = px.scatter(df, x='distance_km', y='fare', title="Fare vs Distance", color='fare')
-    fig.write_image("plots/fare_vs_distance.png")
+    # Commented out saving image to avoid Plotly kaleido runtime error on Streamlit Cloud
+    # fig.write_image("plots/fare_vs_distance.png")
     st.plotly_chart(fig)
 
 # 6. Revenue Trend Line Chart

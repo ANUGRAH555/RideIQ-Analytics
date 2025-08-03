@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import os
-import requests
 from utils import clean_data, perform_analysis
 from visualization import (
     plot_rides_per_day, plot_hourly_distribution, plot_ride_type_distribution,
@@ -144,11 +143,13 @@ if df is not None and not df.empty:
     st.subheader("2.⏰ Hourly Ride Distribution")
     plot_hourly_distribution(analysis['rides_per_hour'])
 
-    
     plot_ride_type_distribution(analysis['ride_type_distribution'])
     plot_histograms(df)
     plot_revenue_trend(analysis['revenue_per_day'])
+
+    # Plotly scatter plot: do NOT save image file (to avoid kaleido error)
     plot_fare_vs_distance(df)
+
     plot_top_locations(analysis['top_pickup_locations'], analysis['top_drop_locations'])
     plot_correlation_heatmap(df)
 
@@ -178,12 +179,19 @@ if df is not None and not df.empty:
         f"Highest Revenue Day: {highest_revenue_day}",
         f"Top Pickup: {top_pickup} → Top Drop: {top_drop}"
     ]
+
+    # Exclude 'fare_vs_distance.png' plot because it is not saved (Plotly)
     plot_files = [
-        "plots/rides_per_day.png", "plots/rides_per_hour.png",
-        "plots/ride_type_distribution.png", "plots/histograms.png",
-        "plots/revenue_per_day.png", "plots/fare_vs_distance.png",
-        "plots/correlation_heatmap.png", "plots/top_locations.png"
+        "plots/rides_per_day.png",
+        "plots/rides_per_hour.png",
+        "plots/ride_type_distribution.png",
+        "plots/histograms.png",
+        "plots/revenue_per_day.png",
+        # "plots/fare_vs_distance.png",  # Removed due to no file saved
+        "plots/correlation_heatmap.png",
+        "plots/top_locations.png"
     ]
+
     output_pdf = "RideIQ_Report.pdf"
     generate_pdf_report(analysis, insights, plot_files, output_path=output_pdf)
 
