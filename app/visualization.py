@@ -6,12 +6,13 @@ import plotly.express as px
 import folium
 from streamlit_folium import st_folium
 
-# Ensure plots directory exists
-if not os.path.exists("plots"):
-    os.makedirs("plots")
+# Utility to ensure 'plots/' exists
+def ensure_plots_dir():
+    os.makedirs("plots", exist_ok=True)
 
 # 1. Line Plot (Rides per Day)
 def plot_rides_per_day(rides_per_day):
+    ensure_plots_dir()
     fig, ax = plt.subplots(figsize=(8, 4))
     rides_per_day.plot(kind='line', marker='o', color='#C71585', ax=ax)
     ax.set_title("Rides per Day")
@@ -22,6 +23,7 @@ def plot_rides_per_day(rides_per_day):
 
 # 2. Bar Plot (Hourly Distribution)
 def plot_hourly_distribution(rides_per_hour):
+    ensure_plots_dir()
     fig, ax = plt.subplots(figsize=(8, 4))
     rides_per_hour.plot(kind='bar', color='orange', ax=ax)
     ax.set_title("Hourly Ride Distribution")
@@ -32,6 +34,7 @@ def plot_hourly_distribution(rides_per_hour):
 
 # 3. Pie Chart (Ride Type Distribution)
 def plot_ride_type_distribution(ride_type_distribution):
+    ensure_plots_dir()
     fig, ax = plt.subplots()
     ride_type_distribution.plot(kind='pie', autopct='%1.1f%%', ax=ax)
     ax.set_ylabel('')
@@ -41,6 +44,7 @@ def plot_ride_type_distribution(ride_type_distribution):
 
 # 4. Histogram (Fare & Distance)
 def plot_histograms(df):
+    ensure_plots_dir()
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
     sns.histplot(df['fare'], bins=20, ax=axes[0], color='green')
     axes[0].set_title("Fare Distribution")
@@ -51,12 +55,14 @@ def plot_histograms(df):
 
 # 5. Scatter Plot (Fare vs Distance)
 def plot_fare_vs_distance(df):
+    ensure_plots_dir()
     fig = px.scatter(df, x='distance_km', y='fare', title="Fare vs Distance", color='fare')
     fig.write_image("plots/fare_vs_distance.png")
     st.plotly_chart(fig)
 
 # 6. Revenue Trend Line Chart
 def plot_revenue_trend(revenue_per_day):
+    ensure_plots_dir()
     fig, ax = plt.subplots(figsize=(8, 4))
     revenue_per_day.plot(kind='line', marker='o', color='red', ax=ax)
     ax.set_title("Revenue Per Day")
@@ -67,6 +73,7 @@ def plot_revenue_trend(revenue_per_day):
 
 # 7. Correlation Heatmap
 def plot_correlation_heatmap(df):
+    ensure_plots_dir()
     corr = df[['fare', 'distance_km', 'duration_mins']].corr()
     fig, ax = plt.subplots(figsize=(5, 4))
     sns.heatmap(corr, annot=True, cmap='coolwarm', ax=ax)
@@ -76,6 +83,7 @@ def plot_correlation_heatmap(df):
 
 # 8. Bar Chart (Top Locations)
 def plot_top_locations(top_pickup, top_drop):
+    ensure_plots_dir()
     fig, axes = plt.subplots(1, 2, figsize=(12, 5))
     top_pickup.plot(kind='bar', color='blue', ax=axes[0])
     axes[0].set_title("Top Pickup Locations")
