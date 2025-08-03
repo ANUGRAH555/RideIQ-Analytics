@@ -6,6 +6,20 @@ import plotly.express as px
 import folium
 from streamlit_folium import st_folium
 
+
+
+def ensure_plots_dir():
+    if os.path.exists("plots"):
+        if not os.path.isdir("plots"):
+            # If "plots" exists but is a file, delete it first
+            os.remove("plots")
+            os.makedirs("plots")
+    else:
+        os.makedirs("plots")
+
+# Then your other imports and plotting functions below...
+
+
 # Utility to ensure 'plots/' exists
 def ensure_plots_dir():
     os.makedirs("plots", exist_ok=True)
