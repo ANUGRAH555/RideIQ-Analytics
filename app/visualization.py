@@ -8,14 +8,12 @@ from streamlit_folium import st_folium
 
 
 
+
+
 def ensure_plots_dir():
-    if os.path.exists("plots"):
-        if not os.path.isdir("plots"):
-            # If "plots" exists but is a file, delete it first
-            os.remove("plots")
-            os.makedirs("plots")
-    else:
+    if not os.path.exists("plots"):
         os.makedirs("plots")
+
 
 # Then your other imports and plotting functions below...
 
